@@ -28,8 +28,8 @@ type Universe [][]bool
 
 func NewUniverse() Universe{
 	u := make(Universe, height)
-	for i:= range u{
-		u[i] = make([]bool,width)
+	for w:= range u{
+		u[w] = make([]bool,width)
 	}
 	return u
 } 
