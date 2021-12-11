@@ -12,12 +12,12 @@ import (
 const(
 	width = 80
 	height = 22
-	LiveCellStartRate = 25 //%
+	LiveCellStartRate = 0.25 
 	maxiter=180
 	TimePerIteration = 1000 //milliseconds
 	LiveCell = "o"
 	DeadCell = " "
-	EscapeSequence = "\033[H\033[2J"
+	EscapeSequence = "\033[H\033[2J" //Linux
 	)
 
 var RandomSeed int64 = time.Now().UnixNano() 
@@ -57,10 +57,10 @@ func (u Universe) Show(){
 
 func (u Universe) Seed(){
 	rand.Seed(RandomSeed)
-	var n int
+	var n float64
 	for h:=0;h<height;h++{
 		for w:=0;w<width;w++{
-			n = rand.Intn(100) + 1
+			n = rand.Float64()
 			if n<=LiveCellStartRate{
 				u[h][w]=true
 			}else{
@@ -161,4 +161,3 @@ func run(){
 func main(){
 	run()
 }
-
