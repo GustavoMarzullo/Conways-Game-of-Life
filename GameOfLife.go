@@ -1,7 +1,7 @@
 //Page 155 - Get Programming with Go - Nathan Youngman, Roger Peppé (2018)
 package main
 
-import(
+import (
 	"fmt"
 	"math/rand"
 	"time"
@@ -11,13 +11,17 @@ import(
 
 const(
 	width = 80
-	height = 24
-	maxiter=180
-	TimePerIteration = 1 //seconds
+	height = 22
+	LiveCellStartRate = 15 //%
+	maxiter=18000
+	TimePerIteration = 1 //milliseconds
 	LiveCell = "o"
 	DeadCell = " "
 	EscapeSequence = "\033[H\033[2J"
 	)
+
+var RandomSeed int64 = time.Now().UnixNano() 
+//1639230349016476288
 
 /* Define a Universe type to hold a two-dimensional field of cells. With a Boolean type
 each cell will be either dead ( false ) or alive ( true )*/
@@ -53,11 +57,12 @@ func (u Universe) Show(){
 //Write a Seed method that randomly sets approximately 25% of the cells to alive (true)
 
 func (u Universe) Seed(){
+	rand.Seed(RandomSeed)
 	var n int
 	for h:=0;h<height;h++{
 		for w:=0;w<width;w++{
 			n = rand.Intn(100) + 1
-			if n<=25{
+			if n<=LiveCellStartRate{
 				u[h][w]=true
 			}else{
 				u[h][w]=false
@@ -133,7 +138,8 @@ func (u Universe) Next(h, w int) bool{
 
 func run(){
 	u:=NewUniverse()
-	u.Seed()	
+	u.Seed()
+	ActualIter:=0	
 	dummy := NewUniverse()
 	for iter:=0;iter<maxiter;iter++{
 		for h:=0;h<height;h++{
@@ -143,8 +149,11 @@ func run(){
 		}
 		u,dummy=dummy,u
 		fmt.Print(EscapeSequence)
+		ActualIter++
+		fmt.Printf("Iteration %v of %v (%d%%)\n",ActualIter,maxiter,100*ActualIter/maxiter)
+		fmt.Printf("Random seed: %v\n\n",RandomSeed)
 		u.Show()
-		time.Sleep(TimePerIteration * time.Second)
+		time.Sleep(TimePerIteration * time.Millisecond)
 	}
 }
 
