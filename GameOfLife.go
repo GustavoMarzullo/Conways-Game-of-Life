@@ -11,8 +11,8 @@ import(
 
 const(
 	width = 80
-	height = 15
-	maxiter=100
+	height = 24
+	maxiter=180
 	TimePerIteration = 1 //seconds
 	LiveCell = "o"
 	DeadCell = " "
