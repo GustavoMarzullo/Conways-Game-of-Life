@@ -34,8 +34,7 @@ func NewUniverse() Universe{
 	return u
 } 
 
-/*Write a method to print a universe to the screen using the fmt package. Represent live
-cells with an asterisk and dead cells with a space. Be sure to move to a new line after
+/*Write a method to print a universe to the screen using the fmt package. Be sure to move to a new line after
 printing each row*/
 
 func (u Universe) Show(){
