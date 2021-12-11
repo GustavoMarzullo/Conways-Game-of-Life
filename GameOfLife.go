@@ -12,16 +12,15 @@ import (
 const(
 	width = 80
 	height = 22
-	LiveCellStartRate = 15 //%
-	maxiter=18000
-	TimePerIteration = 1 //milliseconds
+	LiveCellStartRate = 25 //%
+	maxiter=180
+	TimePerIteration = 1000 //milliseconds
 	LiveCell = "o"
 	DeadCell = " "
 	EscapeSequence = "\033[H\033[2J"
 	)
 
 var RandomSeed int64 = time.Now().UnixNano() 
-//1639230349016476288
 
 /* Define a Universe type to hold a two-dimensional field of cells. With a Boolean type
 each cell will be either dead ( false ) or alive ( true )*/
